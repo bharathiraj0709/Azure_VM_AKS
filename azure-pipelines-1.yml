@@ -2,23 +2,17 @@ trigger:
 - main
 
 pool:
-  name: Azure Pipelines
+  vmImage: 'ubuntu-latest'
 
 steps:
 - checkout: self
 
 - script: |
-    terraform init
-  displayName: Terraform Init
+    pwd
+    ls -ltr
+    find . -name "*.tf"
+  displayName: 'Verify Terraform Files'
 
 - script: |
-    terraform validate
-  displayName: Terraform Validate
-
-- script: |
-    terraform plan -out=tfplan
-  displayName: Terraform Plan
-
-- script: |
-    terraform apply -auto-approve tfplan
-  displayName: Terraform Apply
+    terraform version
+  displayName: 'Check Terraform'
