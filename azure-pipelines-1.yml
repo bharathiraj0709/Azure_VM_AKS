@@ -7,12 +7,19 @@ pool:
 steps:
 - checkout: self
 
-- script: |
-    pwd
-    ls -ltr
-    find . -name "*.tf"
-  displayName: 'Verify Terraform Files'
+- task: TerraformInstaller@1
+  displayName: 'Install Terraform'
+  inputs:
+    terraformVersion: 'latest'
 
-- script: |
-    terraform version
-  displayName: 'Check Terraform'
+- script: terraform version
+  displayName: 'Verify Terraform'
+
+- script: terraform init
+  displayName: 'Terraform Init'
+
+- script: terraform validate
+  displayName: 'Terraform Validate'
+
+- script: terraform plan
+  displayName: 'Terraform Plan'
