@@ -5,7 +5,20 @@ pool:
   name: Azure Pipelines
 
 steps:
+- checkout: self
+
 - script: |
-    echo "Hello from Azure DevOps"
-    uname -a
-  displayName: Test
+    terraform init
+  displayName: Terraform Init
+
+- script: |
+    terraform validate
+  displayName: Terraform Validate
+
+- script: |
+    terraform plan -out=tfplan
+  displayName: Terraform Plan
+
+- script: |
+    terraform apply -auto-approve tfplan
+  displayName: Terraform Apply
