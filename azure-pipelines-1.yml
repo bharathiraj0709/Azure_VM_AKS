@@ -5,8 +5,23 @@ pool:
   vmImage: 'ubuntu-latest'
 
 steps:
+- checkout: self
+
 - script: |
     wget https://releases.hashicorp.com/terraform/1.12.2/terraform_1.12.2_linux_amd64.zip
-    unzip terraform_1.12.2_linux_amd64.zip
+    unzip -o terraform_1.12.2_linux_amd64.zip
     sudo mv terraform /usr/local/bin/
     terraform version
+  displayName: 'Install Terraform'
+
+- script: |
+    terraform init
+  displayName: 'Terraform Init'
+
+- script: |
+    terraform validate
+  displayName: 'Terraform Validate'
+
+- script: |
+    terraform plan
+  displayName: 'Terraform Plan'
