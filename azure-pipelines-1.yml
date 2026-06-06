@@ -1,0 +1,11 @@
+trigger:
+- main
+
+pool:
+  name: Azure Pipelines
+
+steps:
+- script: |
+    echo "Hello from Azure DevOps"
+    uname -a
+  displayName: Test
